@@ -7,8 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # cleaning the DB
-Movie.destroy_all
 List.destroy_all
+Movie.destroy_all
 
 puts "#{Movie.all.count} film in the db"
 puts "#{List.all.count} list in the db"
@@ -34,3 +34,13 @@ puts "#{Movie.all.count} films in the db"
 end
 
 puts "#{List.all.count} lists in the db"
+
+5.times do
+  Bookmark.create!(
+    comment: Faker::Quotes::Shakespeare.as_you_like_it_quote,
+    movie: Movie.all.sample,
+    list: List.all.sample
+  )
+end
+
+puts "#{Bookmark.all.count} bookmarks in the db"
