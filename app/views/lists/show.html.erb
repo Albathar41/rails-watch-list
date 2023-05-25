@@ -4,9 +4,10 @@
 <h4> All the movies in the list</h4>
 
 <ul class="list-group">
-  <% @list.movies.each do |movie| %>
+  <% @list.bookmarks.each do |bookmark| %>
     <li class="list-group-item">
-      <%= movie.title %>
+      <%= bookmark.movie.title %>
+      <%= link_to 'delete', bookmark_path(bookmark), data: { turbo_method: 'delete', turbo_confirm: 'sure?'} %>
     </li>
   <% end %>
 </ul>
@@ -14,4 +15,4 @@
 <hr>
 
 <%= link_to 'New list', new_list_path %>
-<%= link_to 'Add a movie', new_list_path %>
+<%= link_to 'Add a movie', new_list_bookmark_path(@list) %>
