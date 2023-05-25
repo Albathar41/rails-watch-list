@@ -9,20 +9,24 @@
 # cleaning the DB
 List.destroy_all
 Movie.destroy_all
+Bookmark.destroy_all
 
 puts "#{Movie.all.count} film in the db"
 puts "#{List.all.count} list in the db"
 
 puts "creating the DB"
 
-15.times do
-  movie = Movie.new(
-    title: Faker::Movie.title,
-    overview: Faker::Movie.quote,
-    poster_url: Faker::LoremFlickr.image,
-    rating: (rand()*10).round(1)
-  )
-  movie.save
+url = "https://tmdb.lewagon.com/movie/top_rated"
+data = URI.open(url).read
+movies = JSON.parse(data)
+
+movies['results'].take(30).each do |movie|
+    Movie.create!(
+      title: movie['title'],
+      overview: movie['overview'],
+      poster_url: movie['poster_path'],
+      rating: movie['vote_average']
+    )
 end
 
 puts "#{Movie.all.count} films in the db"
