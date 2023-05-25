@@ -8,18 +8,29 @@
 
 # cleaning the DB
 Movie.destroy_all
+List.destroy_all
 
 puts "#{Movie.all.count} film in the db"
+puts "#{List.all.count} list in the db"
 
 puts "creating the DB"
 
 15.times do
-  Movie.create(
+  movie = Movie.new(
     title: Faker::Movie.title,
     overview: Faker::Movie.quote,
     poster_url: Faker::LoremFlickr.image,
     rating: (rand()*10).round(1)
   )
+  movie.save
 end
 
-puts "#{Movie.all.count} film in the db"
+puts "#{Movie.all.count} films in the db"
+
+4.times do
+  List.create!(
+    name: Faker::Name.middle_name
+  )
+end
+
+puts "#{List.all.count} lists in the db"
