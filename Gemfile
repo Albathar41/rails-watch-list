@@ -47,6 +47,8 @@ gem "sassc-rails"
 
 gem 'dotenv-rails'
 
+gem "cloudinary"
+
 # front-end gems
 gem "bootstrap", "~> 5.2"
 gem "autoprefixer-rails"
