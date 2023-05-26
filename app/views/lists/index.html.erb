@@ -1,14 +1,33 @@
 <%= render "banner", page_title: "Save any kind of movie", page_url: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" %>
 
+<% listimg = ["https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZmlsbXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60", "https://images.unsplash.com/photo-1512070679279-8988d32161be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZmlsbXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60", "https://images.unsplash.com/photo-1608533341992-14023a4d715e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGZpbG1zfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"] %>
+
 <div class="container">
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between mb-3">
     <h4> My lists (<%= @lists.count %>)</h4>
     <%= link_to 'create a movie list', new_list_path , type:"button", class:"btn btn-success"%>
   </div>
+  <div class="row align-items-start">
+      <% @lists.each do |list| %>
+    <div class="cards col-4">
+        <div class="card shadow mb-5 bg-body rounded" style="width: 18rem;">
+          <%= image_tag listimg.sample, class: "image image-fluid", style: "width: auto;
+	max-height: 200px;" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= list.name %></h5>
+            <div class="d-flex inline-block justify-content-between">
+              <div><%= link_to "More info", list_path(list), class: "btn btn-primary" %></div>
+              <div><%= link_to "Remove", list_path(list), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %></div>
+            </div>
+          </div>
+        </div>
+    </div>
+      <% end %>
+  </div>
 
-  <ul>
-    <% @lists.each do |list| %>
-      <li><%= link_to list.name, list_path(list) %></li>
-    <% end %>
-  </ul>
-</div>
+  <%# <ul> %>
+    <%# @lists.each do |list| %>
+      <%# <li><%#= link_to list.name, list_path(list) %>
+    <%# end %>
+  <%# </ul>
+</div> %>
